@@ -1,0 +1,1 @@
+/* This file is not applicable based on the specification provided as there is no Product model mentioned. Thus, it is intentionally left empty. */

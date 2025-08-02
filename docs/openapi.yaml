@@ -1,0 +1,75 @@
+openapi: 3.0.0
+info:
+  title: Feedback API
+  version: 1.0.0
+paths:
+  /api/register:
+    post:
+      summary: Register a new user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: User successfully registered
+  /api/login:
+    post:
+      summary: Login a user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Login'
+      responses:
+        '200':
+          description: User successfully logged in
+  /api/feedback:
+    post:
+      summary: Submit feedback
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Feedback'
+      responses:
+        '201':
+          description: Feedback successfully submitted
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        username:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+    Login:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+    Feedback:
+      type: object
+      properties:
+        user_id:
+          type: integer
+        company_name:
+          type: string
+        url:
+          type: string
+        purpose:
+          type: string
+        technologies:
+          type: string
+        feedback_requested:
+          type: string
+        beta_testers:
+          type: boolean
+        additional_comments:
+          type: string

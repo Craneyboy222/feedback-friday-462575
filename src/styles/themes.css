@@ -1,0 +1,27 @@
+/* Theme styles */
+:root {
+  --primary-color: #3182ce;
+  --secondary-color: #2d3748;
+  --background-color: #f7fafc;
+  --text-color: #1a202c;
+}
+
+.light-theme {
+  --background-color: #f7fafc;
+  --text-color: #1a202c;
+}
+
+.dark-theme {
+  --background-color: #1a202c;
+  --text-color: #f7fafc;
+}
+
+[data-theme='light'] {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+[data-theme='dark'] {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}

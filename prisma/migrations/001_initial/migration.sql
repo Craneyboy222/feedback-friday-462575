@@ -1,0 +1,51 @@
+CREATE TABLE Users (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(255) UNIQUE NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password_hash TEXT NOT NULL,
+    profile_info JSONB
+);
+
+CREATE TABLE Feedback (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES Users(id) ON DELETE CASCADE,
+    company_name VARCHAR(255),
+    url TEXT,
+    purpose TEXT,
+    technologies TEXT,
+    feedback_requested TEXT,
+    beta_testers BOOLEAN DEFAULT FALSE,
+    additional_comments TEXT,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Surveys (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES Users(id) ON DELETE CASCADE,
+    survey_link TEXT NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Comments (
+    id SERIAL PRIMARY KEY,
+    feedback_id INTEGER REFERENCES Feedback(id) ON DELETE CASCADE,
+    user_id INTEGER REFERENCES Users(id) ON DELETE CASCADE,
+    comment_text TEXT NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE PromoCodes (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES Users(id) ON DELETE CASCADE,
+    code VARCHAR(100) UNIQUE NOT NULL,
+    description TEXT,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Votes (
+    id SERIAL PRIMARY KEY,
+    feedback_id INTEGER REFERENCES Feedback(id) ON DELETE CASCADE,
+    user_id INTEGER REFERENCES Users(id) ON DELETE CASCADE,
+    vote_type SMALLINT CHECK (vote_type IN (1, -1)),
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);

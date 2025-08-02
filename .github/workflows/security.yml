@@ -1,0 +1,19 @@
+name: Security Scanning
+
+on: [push]
+
+jobs:
+  security:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Run dependency check
+      run: npm audit
+
+    - name: Run vulnerability scan
+      uses: aquasecurity/trivy-action@v0.2.0
+      with:
+        image-ref: 'myapp:${{ github.sha }}'

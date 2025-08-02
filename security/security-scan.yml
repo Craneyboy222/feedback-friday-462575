@@ -1,0 +1,16 @@
+name: Security Scan
+
+on: [pull_request]
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Run security scan
+      uses: aquasecurity/trivy-action@v0.2.0
+      with:
+        image-ref: 'myapp:${{ github.sha }}'

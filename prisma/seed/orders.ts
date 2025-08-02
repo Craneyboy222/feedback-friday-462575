@@ -1,0 +1,1 @@
+/* This file is not applicable as per current schema definition. */

@@ -1,0 +1,102 @@
+openapi: 3.0.0
+info:
+  title: Enterprise Application API
+  version: 1.0.0
+  description: API documentation for the Enterprise Application
+servers:
+  - url: https://api.yourdomain.com
+    description: Production server
+  - url: https://staging-api.yourdomain.com
+    description: Staging server
+paths:
+  /api/register:
+    post:
+      summary: Register a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '201':
+          description: User registered successfully
+        '400':
+          description: Bad request
+  /api/login:
+    post:
+      summary: Login a user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: User logged in successfully
+        '401':
+          description: Unauthorized
+  /api/profile:
+    get:
+      summary: Get user profile
+      responses:
+        '200':
+          description: Successful retrieval of user profile
+        '403':
+          description: Forbidden
+    put:
+      summary: Update user profile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                profile_info:
+                  type: string
+      responses:
+        '200':
+          description: Profile updated successfully
+        '400':
+          description: Bad request
+  /api/feedback:
+    post:
+      summary: Submit feedback
+      responses:
+        '201':
+          description: Feedback submitted successfully
+    get:
+      summary: Get list of feedback
+      responses:
+        '200':
+          description: Successfully retrieved feedback list
+  /api/feedback/{id}:
+    get:
+      summary: Get specific feedback details
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Feedback ID
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Feedback details retrieved successfully
+        '404':
+          description: Feedback not found
+  # Additional endpoints follow the same structure for surveys, comments, promo codes, and votes.
